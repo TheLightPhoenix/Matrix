@@ -16,7 +16,8 @@ class Wektor
 		void setElement(int index, int value);
 		int getSize() const {return rozmiar;};
 				
-		int& operator[](int index);		
+		int& operator[](int index) {return tab[index];};
+		const int& operator[](int index) const {return tab[index];};		
 		Wektor operator+(Wektor& v);
 		Wektor operator-(Wektor& v);
 		Wektor operator*(int sk);		
