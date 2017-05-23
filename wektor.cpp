@@ -10,7 +10,15 @@ Wektor::Wektor(int rozmiar1)
 		cout << "Rozmiar musi byc dodatni" << endl;
 	tab = new int[rozmiar];
 	for(int i = 0; i < rozmiar; ++i)
-		tab[i] = 0;
+		tab[i] = 1;
+}
+
+Wektor::Wektor(const Wektor& v)
+{
+	rozmiar = v.getSize();
+	tab = new int[rozmiar];
+	for(int i = 0; i < rozmiar; ++i)
+		tab[i] = v.getElement(i);
 }
 
 Wektor::~Wektor()
@@ -36,6 +44,45 @@ void Wektor::setElement(int index, int value)
 		return;	
 	}
 	tab[index] = value;
+}
+
+Wektor Wektor::operator+(Wektor& v)
+{
+	if(v.getSize() != this->getSize())
+		return Wektor();
+	else
+	{
+		Wektor w(v.getSize());		
+		for(int i = 0; i < v.getSize(); ++i)
+			w.setElement(i, this->getElement(i)+v.getElement(i));
+		return w;
+	}
+}		
+
+Wektor Wektor::operator-(Wektor& v)
+{
+	if(v.getSize() != this->getSize())
+		return Wektor();
+	else
+	{
+		Wektor w(v.getSize());		
+		for(int i = 0; i < v.getSize(); ++i)
+			w.setElement(i, this->getElement(i)-v.getElement(i));
+		return w;
+	}
+}
+
+Wektor Wektor::operator*(int sk)
+{
+	Wektor w(getSize());		
+	for(int i = 0; i < getSize(); ++i)
+		w.setElement(i, this->getElement(i)*sk);
+	return w;
+}
+
+int& Wektor::operator[](int index)
+{
+	return tab[index];
 }
 
 ostream & operator<< (ostream &wyjscie, const Wektor &w)
